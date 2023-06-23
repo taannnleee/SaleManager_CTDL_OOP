@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace SaleManager.DataStructure.Base
 {
-    public class LinkedList
+    public class LinkedList<T>
     {
+        private int size;
+        private Node<T>? firtItem;
+        private Node<T>? lastItem;
     }
 }
