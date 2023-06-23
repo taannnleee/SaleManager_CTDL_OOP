@@ -7,18 +7,18 @@ using SaleManager.Models;
 
 namespace SaleManager.Models.Base
 {
-    public abstract class DanhSach<T>
+    public abstract class BaseList<T>
     {
         // Fields
         protected T[] list_;
         protected int iSize;
-        protected int iGioiHan;
+        protected int capacity;
         // Constuctor
-        public DanhSach(int GioiHan)
+        public BaseList(int capacity)
         {
 
-            this.List = new T[GioiHan];
-            this.GioiHan = GioiHan;
+            this.List = new T[capacity];
+            this.Capacity = capacity;
             this.Size = 0;
         }
         //Proerties
@@ -27,10 +27,10 @@ namespace SaleManager.Models.Base
             get { return iSize; }
             set { iSize = value; }
         }
-        public int GioiHan
+        public int Capacity
         {
-            get { return iGioiHan; }
-            set { iGioiHan = value; }
+            get { return capacity; }
+            set { capacity = value; }
         }
 
         public T[] List
@@ -59,7 +59,7 @@ namespace SaleManager.Models.Base
 
         public bool isFull()
         {
-            return iSize >= iGioiHan;
+            return iSize >= capacity;
         }
         public bool IsValidIndex(int index)
         {
@@ -68,7 +68,7 @@ namespace SaleManager.Models.Base
         public abstract void AddItem(int index, T item);
         public abstract T Get(int index);
         public abstract void AddLast(T item);
-        public abstract void AddRange(DanhSach<T> sourceList);
+        public abstract void AddRange(BaseList<T> sourceList);
         public abstract void RemoveItem(int index);
         public abstract void Print();
         public abstract T SearchItem(T item);

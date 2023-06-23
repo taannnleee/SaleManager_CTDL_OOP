@@ -12,16 +12,16 @@ namespace SaleManager.Main
     {
         static void Main(string[] args)
         {
-            int chon = DangNhap.Run();
+            int chon = Login.Run();
             while (true)
             {
                 switch (chon)
                 {
                     case Constant.BACK_TO_PROGRAM:
-                        chon = Menu.Run();
+                        chon = MenuMain.Run();
                         break;
                     case Constant.MESSAGE_INTO_THE_STOCK:
-                        chon = QuanLyKho.Run();
+                        chon = MenuProduct.Run();
                         break;
                     case Constant.MESSAGE_INTO_THE_STAFF:
                         //chon = QuanLyNhanVien.Run();

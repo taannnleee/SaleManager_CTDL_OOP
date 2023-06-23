@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SaleManager
 {
-    public static class DangNhap
+    public static class Login
     {
 
         public delegate bool check(string a, int b);

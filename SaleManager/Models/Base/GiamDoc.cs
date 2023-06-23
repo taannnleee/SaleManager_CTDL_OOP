@@ -24,7 +24,7 @@ namespace SaleManager.Models.Base
         }
         // Constucter
         public GiamDoc(string id, string Ten, string GioiTinh,
-            ThoiGian NgaySinh, string DiaChi, string SoDienThoai,
+            Time NgaySinh, string DiaChi, string SoDienThoai,
             int Luong, double CoPhan) : base(id, Ten, GioiTinh, NgaySinh, DiaChi, SoDienThoai)
         {
             this.Luong = Luong;
@@ -32,7 +32,7 @@ namespace SaleManager.Models.Base
         }
 
         public GiamDoc(string id, string Ten, string GioiTinh,
-            ThoiGian NgaySinh, string DiaChi, string SoDienThoai
+            Time NgaySinh, string DiaChi, string SoDienThoai
             ) : base(id, Ten, GioiTinh, NgaySinh, DiaChi, SoDienThoai)
         {
             

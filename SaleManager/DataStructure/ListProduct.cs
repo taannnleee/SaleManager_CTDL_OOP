@@ -8,16 +8,16 @@ using SaleManager.Models.Base;
 
 namespace SaleManager.DataStructure
 {
-    public class DanhSachSanPham : DanhSach<SanPham>, IDanhSachSanPham
+    public class ListProduct : Models.Base.BaseList<Product>, IListProduct
     {
-        public DanhSachSanPham(int iGioiHan) : base(iGioiHan)
+        public ListProduct(int iGioiHan) : base(iGioiHan)
         {
 
         }
 
-        public override void AddItem(int index, SanPham item)
+        public override void AddItem(int index, Product item)
         {
-            if (base.iSize >= iGioiHan) return;
+            if (base.iSize >= capacity) return;
             for (int i = base.iSize; i > index; i--)
             {
                 base.list_[i] = base.list_[i - 1];
@@ -26,15 +26,15 @@ namespace SaleManager.DataStructure
             base.list_[index] = item;
         }
 
-        public override void AddLast(SanPham item)
+        public override void AddLast(Product item)
         {
-            if (iSize >= iGioiHan) return;
+            if (iSize >= capacity) return;
             list_[iSize++] = item;
         }
 
-        public void AddFirst(SanPham item)
+        public void AddFirst(Product item)
         {
-            if (iSize >= iGioiHan) return;
+            if (iSize >= capacity) return;
             iSize++;
             for (int i = iSize; i > 1; i--)
             {
@@ -43,18 +43,18 @@ namespace SaleManager.DataStructure
             list_[1] = item;
         }
 
-        public override void AddRange(DanhSach<SanPham> sourceList)
+        public override void AddRange(Models.Base.BaseList<Product> sourceList)
         {
             for (int i = 0; i < sourceList.Size; i++)
             {
-                if (iSize >= GioiHan)
+                if (iSize >= Capacity)
                     return;
                 else
                     list_[iSize++] = sourceList.Get(i);
             }
         }
 
-        public override SanPham Get(int index)
+        public override Product Get(int index)
         {
             if (!IsValidIndex(index)) return null;
             else
@@ -70,12 +70,12 @@ namespace SaleManager.DataStructure
             iSize--;
         }
 
-        public int RemoveItemByID(SanPham tempproduct)
+        public int RemoveItemByID(Product tempproduct)
         {
             int count = iSize;
             for (int i = 0; i < iSize; i++)
             {
-                if (list_[i].ID == tempproduct.ID)
+                if (list_[i].Id == tempproduct.Id)
                 {
                     RemoveItem(i);
                     count -= 1;
@@ -85,7 +85,7 @@ namespace SaleManager.DataStructure
             return count;
         }
 
-        public override SanPham SearchItem(SanPham item)
+        public override Product SearchItem(Product item)
         {
             for (int i = 0; i < iSize; i++)
             {
@@ -95,9 +95,9 @@ namespace SaleManager.DataStructure
             return null;
         }
 
-        public SanPham SearchItemByID(SanPham item)
+        public Product SearchItemByID(Product item)
         {
-            SanPham temp = null;
+            Product temp = null;
             for (int i = 0; i < iSize; i++)
             {
                 if (item.IsEqual(list_[i]))
@@ -109,28 +109,28 @@ namespace SaleManager.DataStructure
             return temp;
         }
 
-        public DanhSachSanPham DeleteByProductNumber(SanPham tempproduct, int n)
+        public ListProduct DeleteByProductNumber(Product tempproduct, int n)
         {
             int temp = 0;
-            DanhSachSanPham templist = new DanhSachSanPham(100);
+            ListProduct templist = new ListProduct(100);
             for (int i = 0; i < iSize; i++)
             {
                 if (tempproduct.IsEqual(list_[i]))
                 {
-                    list_[i].Soluong = list_[i].Soluong - n;
+                    list_[i].Quatity = list_[i].Quatity - n;
                     templist.AddLast(list_[i]);
                 }
             }
             return templist;
         }
 
-        public DanhSachSanPham SearchItemByName(string name)
+        public ListProduct SearchItemByName(string name)
         {
-            DanhSachSanPham temp = new DanhSachSanPham(100);
-            SanPham product = new SanPham();
+            ListProduct temp = new ListProduct(100);
+            Product product = new Product();
             for (int i = 0; i < iSize; i++)
             {
-                string list = list_[i].Tensp;
+                string list = list_[i].Name;
                 if (list.Contains(name))
                 {
                     temp.AddLast(list_[i]);
@@ -141,13 +141,13 @@ namespace SaleManager.DataStructure
         }
 
 
-        public SanPham QuantityOfAProduct(string name)
+        public Product QuantityOfAProduct(string name)
         {
             int tam = 0;
-            SanPham product = new SanPham();
+            Product product = new Product();
             for (int i = 0; i < iSize; i++)
             {
-                string list = list_[i].Tensp;
+                string list = list_[i].Name;
 
                 if (list==name)
                 {
@@ -160,26 +160,26 @@ namespace SaleManager.DataStructure
             return product;
         }
 
-        public bool ItemAlreadyExists(SanPham item)
+        public bool ItemAlreadyExists(Product item)
         {
-            DanhSachSanPham temp = new DanhSachSanPham(100);
+            ListProduct temp = new ListProduct(100);
             for (int i = 0; i < iSize; i++)
             {
                 if (item.IsEqual(list_[i]))
                 {
-                    list_[i].Soluong += item.Soluong;
+                    list_[i].Quatity += item.Quatity;
                     return true;
                 }
             }
             return false;
         }
 
-        public DanhSachSanPham FindByDate(ThoiGian dayStart, ThoiGian dayEnd)
+        public ListProduct FindByDate(Time dayStart, Time dayEnd)
         {
-            DanhSachSanPham temp = new DanhSachSanPham(100);
+            ListProduct temp = new ListProduct(100);
             for (int i = 0; i < iSize; i++)
             {
-                if (list_[i].Ngayhethan >= dayStart && list_[i].Ngayhethan <= dayEnd)
+                if (list_[i].Expiresdate >= dayStart && list_[i].Expiresdate <= dayEnd)
                 {
                     temp.AddLast(list_[i]);
                 }
@@ -188,7 +188,7 @@ namespace SaleManager.DataStructure
             return temp;
         }
 
-        public override int IndexOf(SanPham item)
+        public override int IndexOf(Product item)
         {
             for (int i = 0; i < iSize; i++)
                 if (item.IsEqual(list_[i]))
@@ -200,9 +200,9 @@ namespace SaleManager.DataStructure
         {
             for (int i = 1; i < iSize; i++)
             {
-                SanPham t = list_[i];
+                Product t = list_[i];
                 int j = i - 1;
-                while (j >= 0 && t.Soluong > list_[j].Soluong)
+                while (j >= 0 && t.Quatity> list_[j].Quatity)
                 {
                     list_[j + 1] = list_[j];
                     j--;
@@ -211,11 +211,11 @@ namespace SaleManager.DataStructure
             }
         }
 
-        public DanhSachSanPham FindExpiredProducts(ThoiGian today)
+        public ListProduct FindExpiredProducts(Time today)
         {
-            DanhSachSanPham temp = new DanhSachSanPham(100);
+            ListProduct temp = new ListProduct(100);
             for (int i = 0; i < iSize; i++)
-                if (today > list_[i].Ngayhethan)
+                if (today > list_[i].Expiresdate)
                     temp.AddLast(list_[i]);
             return temp;
         }
@@ -225,17 +225,17 @@ namespace SaleManager.DataStructure
             int sum = 0;
             for (int i = 0; i < iSize; i++)
             {
-                sum += list_[i].Soluong;
+                sum += list_[i].Quatity;
             }
             return sum;
         }
 
-        public DanhSachSanPham ProductQuantityMoreThan100()
+        public ListProduct ProductQuantityMoreThan100()
         {
-            DanhSachSanPham temp = new DanhSachSanPham(100);
+            ListProduct temp = new ListProduct(100);
             for (int i = 0; i < iSize; i++)
             {
-                if (list_[i].Soluong > 100)
+                if (list_[i].Quatity > 100)
                 {
                     temp.AddLast(list_[i]);
                 }
@@ -243,13 +243,13 @@ namespace SaleManager.DataStructure
             return temp;
         }
 
-        public DanhSachSanPham MaximumNumberOfProducts()
+        public ListProduct MaximumNumberOfProducts()
         {
-            DanhSachSanPham temp = new DanhSachSanPham(100);
-            SanPham max = list_[0];
+            ListProduct temp = new ListProduct(100);
+            Product max = list_[0];
             for (int i = 1; i < iSize; i++)
             {
-                if (list_[i].Soluong > max.Soluong)
+                if (list_[i].Quatity > max.Quatity)
                 {
                     max = list_[i];
 
@@ -260,13 +260,13 @@ namespace SaleManager.DataStructure
             return temp;
         }
 
-        public DanhSachSanPham MinimumNumberOfProducts()
+        public ListProduct MinimumNumberOfProducts()
         {
-            DanhSachSanPham temp = new DanhSachSanPham(100);
-            SanPham min = list_[0];
+            ListProduct temp = new ListProduct(100);
+            Product min = list_[0];
             for (int i = 1; i < iSize; i++)
             {
-                if (list_[i].Soluong < min.Soluong)
+                if (list_[i].Quatity < min.Quatity)
                 {
                     min = list_[i];
 
@@ -277,14 +277,14 @@ namespace SaleManager.DataStructure
             return temp;
         }
 
-        public int CheckNumberProduct(SanPham temp)
+        public int CheckNumberProduct(Product temp)
         {
             int sum = 0;
             for (int i = 0; i < iSize; i++)
             {
                 if (temp.IsEqual(list_[i]))
                 {
-                    sum = list_[i].Soluong;
+                    sum = list_[i].Quatity;
                     break;
                 }
             }
@@ -298,17 +298,17 @@ namespace SaleManager.DataStructure
             try
             {
                 StreamWriter sw = new StreamWriter(path);
-                SanPham product;
+                Product product;
                 for (int i = 0; i < iSize; i++)
                 {
                     product = list_[i];
                     sw.WriteLine("{0};{1};{2};{3};{4};{5}",
-                    product.ID, //0
-                    product.Tensp, //1
-                    product.Soluong,//2
-                    product.Ngaynhap.layThoiGian(),//3
-                    product.Ngayhethan.layThoiGian(), // 4
-                    product.GiaTien); //5
+                    product.Id, //0
+                    product.Name, //1
+                    product.Quatity,//2
+                    product.Startedusingday.getTime(),//3
+                    product.Expiresdate.getTime(), // 4
+                    product.Price); //5
                 }
                 sw.Close();
             }
@@ -320,9 +320,9 @@ namespace SaleManager.DataStructure
             return true;
         }
 
-        public void AddLastNoDuplicate(SanPham product)
+        public void AddLastNoDuplicate(Product product)
         {
-            if (FindByID(product.ID) != null)
+            if (FindByID(product.Id) != null)
             {
                 Console.WriteLine("Trung lap");
                 return;
@@ -330,13 +330,13 @@ namespace SaleManager.DataStructure
             AddLast(product);
         }
 
-        public SanPham FindByID(string id)
+        public Product FindByID(string id)
         {
-            SanPham product = null;
+            Product product = null;
             for (int i = 0; i < iSize; i++)
             {
                 product = Get(i);
-                if (id == product.ID)
+                if (id == product.Id)
                     return product;
             }
             return null;
@@ -349,12 +349,12 @@ namespace SaleManager.DataStructure
             for (int i = 0; i < iSize; i++)
             {
                 Console.WriteLine("|{0, -8}|{1, -25}|{2, -16}|{3, -20}|{4, -20}|{5,8}|",
-                    list_[i].ID,
-                    list_[i].Tensp,
-                    list_[i].Soluong,
-                    list_[i].Ngaynhap.layThoiGian(),
-                    list_[i].Ngayhethan.layThoiGian(),
-                    list_[i].GiaTien);
+                    list_[i].Id,
+                    list_[i].Name,
+                    list_[i].Quatity,
+                    list_[i].Startedusingday.getTime(),
+                    list_[i].Expiresdate.getTime(),
+                    list_[i].Price);
             }
         }
     }

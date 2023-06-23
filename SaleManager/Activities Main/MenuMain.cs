@@ -7,7 +7,7 @@ using SaleManager.Information;
 using SaleManager.Utilities;
 namespace SaleManager.Main
 {
-    public static class Menu
+    public static class MenuMain
     {
         delegate int MyDelegate();
         public static int Run()
@@ -16,7 +16,7 @@ namespace SaleManager.Main
             while (true)
             {
                 Console.Clear();
-                TenNhom.ThongTin(50);
+                Group.Information(50);
                 Console.WriteLine("╔=========================================╗");
                 Console.WriteLine("║      Chuong trinh quan ly cua hang      ║");
                 Console.WriteLine("║    Chon che do ma ban muon quan ly      ║");

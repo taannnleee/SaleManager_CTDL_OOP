@@ -12,14 +12,14 @@ using SaleManager.Models.Base;
 
 namespace SaleManager.Main.Option
 {
-    public static class QuanLyKho
+    public static class MenuProduct
     {
         public static int Run()
         {
-            DanhSachSanPham productList = SanPhamTrongKho.productList;
-            DanhSachSanPham tempList = new DanhSachSanPham(100);
-            SanPham tempProduct;
-            ThoiGian today;
+            ListProduct productList = ProductData.productList;
+            ListProduct tempList = new ListProduct(100);
+            Product tempProduct;
+            Time today;
             string tempName;
             int index;
             int sum;
@@ -27,7 +27,7 @@ namespace SaleManager.Main.Option
             while (true)
             {
                 Console.Clear();
-                TenNhom.ThongTin(70);
+                Group.Information(70);
                 Console.Write("=========================MENU==========================\n");
                 Console.Write("| 1. In san pham trong kho                            |\n");
                 Console.Write("| 2. Them san pham vao kho                            |\n");
@@ -66,7 +66,7 @@ namespace SaleManager.Main.Option
                         productList.Print();
                         break;
                     case 2:
-                        tempProduct = new SanPham();
+                        tempProduct = new Product();
                         tempProduct.nhap();
                         if (productList.ItemAlreadyExists(tempProduct) == true)
                         {
@@ -80,7 +80,7 @@ namespace SaleManager.Main.Option
                         }
                         break;
                     case 3:
-                        tempProduct = new SanPham();
+                        tempProduct = new Product();
                         Console.WriteLine("Location Add Products");
                         index = Convert.ToInt32(Console.ReadLine());
                         Console.WriteLine("Product Information");
@@ -97,9 +97,9 @@ namespace SaleManager.Main.Option
                         }
                         break;
                     case 4:
-                        tempProduct = new SanPham();
+                        tempProduct = new Product();
                         Console.WriteLine("Enter product ID");
-                        tempProduct.ID = Console.ReadLine();
+                        tempProduct.Id = Console.ReadLine();
                         tempProduct = productList.SearchItemByID(tempProduct);
                         Console.WriteLine("---------------------------------------------Result---------------------------------");
                         if (tempProduct == null)
@@ -110,10 +110,10 @@ namespace SaleManager.Main.Option
                         }
                         break;
                     case 5:
-                        tempProduct = new SanPham();
+                        tempProduct = new Product();
                         Console.WriteLine("Enter product name ");
-                        tempProduct.Tensp = Console.ReadLine();
-                        string name = tempProduct.Tensp;
+                        tempProduct.Name = Console.ReadLine();
+                        string name = tempProduct.Name;
                         tempList = productList.SearchItemByName(name);
                         Console.WriteLine("---------------------------------------------------Result-----------------------------------------");
                         if (tempList == null)
@@ -128,8 +128,8 @@ namespace SaleManager.Main.Option
                         productList.Print();
                         break;
                     case 7:
-                        today = new ThoiGian();
-                        ThoiGian today2 = ThoiGian.NgayHienTai();
+                        today = new Time();
+                        Time today2 = Time.CurrentDay();
                         tempList = productList.FindExpiredProducts(today2);
                         if (tempList.IsEmpty())
                             Console.WriteLine("Khong co san pham nao het han");
@@ -143,14 +143,14 @@ namespace SaleManager.Main.Option
                         Console.WriteLine(sum);
                         break;
                     case 9:
-                        tempProduct = new SanPham();
+                        tempProduct = new Product();
                         Console.WriteLine("Enter product ID : ");
-                        tempProduct.ID = Console.ReadLine();
+                        tempProduct.Id = Console.ReadLine();
                         int tam = productList.CheckNumberProduct(tempProduct);
                         Console.WriteLine(tam);
                         break;
                     case 10:
-                        tempList = new DanhSachSanPham(100); ;
+                        tempList = new ListProduct(100); ;
                         tempList = productList.ProductQuantityMoreThan100();
                         if (tempList == null)
                             Console.WriteLine("khong tim thay san pham");
@@ -160,7 +160,7 @@ namespace SaleManager.Main.Option
                         }
                         break;
                     case 11:
-                        tempList = new DanhSachSanPham(100); ;
+                        tempList = new ListProduct(100); ;
                         tempList = productList.MaximumNumberOfProducts();
                         if (tempList == null)
                             Console.WriteLine("khong tim thay san pham");
@@ -170,7 +170,7 @@ namespace SaleManager.Main.Option
                         }
                         break;
                     case 12:
-                        tempList = new DanhSachSanPham(100); ;
+                        tempList = new ListProduct(100); ;
                         tempList = productList.MinimumNumberOfProducts();
                         if (tempList == null)
                             Console.WriteLine("Khong tim thay san pham");
@@ -180,17 +180,17 @@ namespace SaleManager.Main.Option
                         }
                         break;
                     case 13:
-                        tempProduct = new SanPham();
+                        tempProduct = new Product();
                         Console.WriteLine("Nhap ten san pham ");
-                        tempProduct.Tensp = Console.ReadLine();
-                        string name1 = tempProduct.Tensp;
+                        tempProduct.Name = Console.ReadLine();
+                        string name1 = tempProduct.Name;
                         tempProduct = productList.QuantityOfAProduct(name1);
                         Console.WriteLine("---------------------------------------------------Result-----------------------------------------");
                         if (tempProduct == null)
                             Console.WriteLine("Khong tim thay san pham");
                         else
                         {
-                            Console.WriteLine(tempProduct.Soluong);
+                            Console.WriteLine(tempProduct.Quatity);
                         }
                         break;
                     case 14:
@@ -209,17 +209,17 @@ namespace SaleManager.Main.Option
                         int vt = Convert.ToInt32(Console.ReadLine());
                         Console.WriteLine("Ten can thay the");
                         string ten = Console.ReadLine();
-                        productList[vt].Tensp = ten;
+                        productList[vt].Name = ten;
                         break;
                     case 16:
-                        DanhSachSanPham kqTruyVan = new DanhSachSanPham(100);
-                        var products = new List<SanPham>();
+                        ListProduct kqTruyVan = new ListProduct(100);
+                        var products = new List<Product>();
 
                         for (int i = 0; i < productList.Size; i++)
                         {
                             products.Add(productList.Get(i));
                         }
-                        var temp = from p in products where p.Soluong >=150 select p;
+                        var temp = from p in products where p.Quatity >=150 select p;
                         
                         Console.WriteLine();
 
@@ -233,14 +233,14 @@ namespace SaleManager.Main.Option
                     case 17:
                         Console.WriteLine("Nhap vao gia tien: ");
                         int giatien = Convert.ToInt32(Console.ReadLine());
-                        DanhSachSanPham kqTruyVan2 = new DanhSachSanPham(100);
-                        var products2 = new List<SanPham>();
+                        ListProduct kqTruyVan2 = new ListProduct(100);
+                        var products2 = new List<Product>();
 
                         for (int i = 0; i < productList.Size; i++)
                         {
                             products2.Add(productList.Get(i));
                         }
-                        var temp2 = from p in products2 where p.GiaTien <= giatien select p;
+                        var temp2 = from p in products2 where p.Price <= giatien select p;
                         foreach (var product in temp2)
                         {
                             kqTruyVan2.AddLast(product);
@@ -255,7 +255,7 @@ namespace SaleManager.Main.Option
                     default:
                         return 100;
                 }
-                TenNhom.DungManHinh();
+                Group.DungManHinh();
             }
         }
 

@@ -9,56 +9,56 @@ namespace SaleManager.Utilities
 {
     public static class CheckTime
     {
-        public static bool IsLeapYear(int nam)
+        public static bool IsLeapYear(int year)
         {
-            if ((nam % 4 == 0) || ((nam % 100 == 0) && (nam % 400 == 0)))
+            if ((year % 4 == 0) || ((year % 100 == 0) && (year % 400 == 0)))
                 return true;
             return false;
         }
 
-        public static int CheckNgay(int Nam, int Thang, int Ngay)
+        public static int CheckDay(int year, int month, int day)
         {
-            if (Ngay <= 0) return 0;
+            if (day <= 0) return 0;
             else
             {
-                if ((Thang == 2) && (Ngay > 29) && (IsLeapYear(Nam))) return 0;
+                if ((month == 2) && (day > 29) && (IsLeapYear(year))) return 0;
                 else
                 {
-                    if (Thang == 4 || Thang == 6 || Thang == 9 || Thang == 12 && Ngay > 30) return 0;
-                    else if (Thang == 1 || Thang == 3 || Thang == 5 || Thang == 8 || Thang == 10 || Thang == 12 & Ngay > 31) return 0;
+                    if (month == 4 || month == 6 || month == 9 || month == 12 && day > 30) return 0;
+                    else if (month == 1 || month == 3 || month == 5 || month == 8 || month == 10 || month == 12 & day > 31) return 0;
 
                 }
             }
             return 1;
         }
         
-        public static int CheckThang(int Thang)
+        public static int CheckMonth(int month)
         {
-            if(Thang < 1 || Thang > 12)
+            if(month < 1 || month > 12)
                 return 0;
             return 1;
         }
-        public static int CheckNam( int Nam)
+        public static int CheckYear( int year)
         {
-            if (Nam < 0)
+            if (year < 0)
                 return 0;
             return 1;
         }
-        public static int CheckGio(int Gio)
+        public static int CheckHour(int hour)
         {
-            if(Gio < 0 || Gio > 24)
+            if(hour < 0 || hour > 24)
                 return 0;
             return 1;
         }
-        public static int CheckPhut(int Phut)
+        public static int CheckMinute(int minute)
         {
-            if (Phut < 0 || Phut > 59)
+            if (minute < 0 || minute > 59)
                 return 0;
             return 1;
         }
-        public static int CheckGiay(int Giay)
+        public static int CheckSecond(int second)
         {
-            if (Giay < 0 || Giay > 59)
+            if (second < 0 || second > 59)
                 return 0;
             return 1;
         }

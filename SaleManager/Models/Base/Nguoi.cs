@@ -13,16 +13,16 @@ namespace SaleManager.Models.Base
         protected string nID;
         protected string nTen;
         protected string nGioiTinh;
-        protected ThoiGian tNgaySinh;
+        protected Time tNgaySinh;
         protected string nDiaChi;
         protected string nSoDienThoai;
         // Constructor
         public Nguoi()
         {
-            this.NgaySinh = new ThoiGian();
+            this.NgaySinh = new Time();
         }
         public Nguoi(string ID, string Ten, string GioiTinh
-            , ThoiGian NgaySinh, string DiaChi, string SoDienThoai)
+            , Time NgaySinh, string DiaChi, string SoDienThoai)
         {
             this.ID = ID;
             this.Ten = Ten;
@@ -57,7 +57,7 @@ namespace SaleManager.Models.Base
             get { return nDiaChi; }
             set { nDiaChi = value; }
         }
-        public ThoiGian NgaySinh
+        public Time NgaySinh
         {
             get { return tNgaySinh; }
             set { tNgaySinh = value; }
@@ -78,7 +78,7 @@ namespace SaleManager.Models.Base
             nGioiTinh = Console.ReadLine();
             Console.WriteLine("Nhap ngay sinh: ");
             Console.Write("{");
-            tNgaySinh.nhap();
+            tNgaySinh.Input();
             Console.Write("}");
             Console.Write("Dia chi: ");
             nDiaChi = Console.ReadLine();
