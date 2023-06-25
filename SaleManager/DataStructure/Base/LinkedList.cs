@@ -117,6 +117,15 @@ namespace SaleManager.DataStructure.Base
             return nLastItem.item;
         }
 
+        public T peekHead()
+        {
+            if (IsEmpty())
+            {
+                throw new Exception("Empty linked list");
+            }
+            return nFirstItem.item;
+        }
+
         public bool IsEmpty()
         {
             return this.nFirstItem == null;
