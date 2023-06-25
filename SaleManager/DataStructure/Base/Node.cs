@@ -8,9 +8,9 @@ namespace SaleManager.DataStructure.Base
 {
     public class Node<T>
     {
-        private T item;
-        private Node<T>? next;
-        private Node<T>? previous;
+        public T item;
+        public Node<T>? next;
+        public Node<T>? previous;
 
         public Node(T value)
         {
