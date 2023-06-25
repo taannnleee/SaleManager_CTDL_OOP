@@ -1,4 +1,5 @@
-﻿using SaleManager.Main.Option;
+﻿using SaleManager.Activities_Main.Option;
+using SaleManager.Main.Option;
 using SaleManager.Models;
 using SaleManager.Utilities;
 using System;
@@ -24,7 +25,7 @@ namespace SaleManager.Main
                         chon = MenuProduct.Run();
                         break;
                     case Constant.MESSAGE_INTO_THE_STAFF:
-                        //chon = QuanLyNhanVien.Run();
+                        chon = MenuEmployee.Run();
                         break;
                     case Constant.MESSAGE_INTO_THE_BILL:
                         //chon = QuanLyBill.Run();
